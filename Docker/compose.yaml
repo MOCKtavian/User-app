@@ -1,0 +1,10 @@
+services:
+  frontend:
+    image: Avatarele/webapp
+    ports:
+      - "80:8082"
+    networks:
+      -
+    environment:
+      - COMPOSE_PROJECT_NAME
+    command: echo "I'm running ${COMPOSE_PROJECT_NAME}"
