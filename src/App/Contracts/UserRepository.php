@@ -2,7 +2,7 @@
 
 namespace Contracts;
 
-use Models\User;
+use Entities\User;
 
 interface UserRepository
 {

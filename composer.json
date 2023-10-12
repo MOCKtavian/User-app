@@ -1,0 +1,8 @@
+{
+    "require": {
+        "bramus/router": "~1.6",
+        "ramsey/uuid": "^4.7",
+        "symfony/uid": "^6.3",
+        "nette/robot-loader": "^4.0"
+    }
+}

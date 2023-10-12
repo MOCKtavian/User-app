@@ -2,13 +2,14 @@
 
 namespace Actions;
 
-use Models\File;
+use Entities\User;
+use Symfony\Component\Uid\Ulid;
 //DTO
 class CreateUser
 {
-    public function create(string $name, File $file ): User
+    public function create(string $name): User
     {
-
-        return $user;
+        $ulid = new Ulid();
+        return new User((int)$ulid, $name);
     }
 }
