@@ -1,17 +1,15 @@
 {
     "require": {
-        "bramus/router": "~1.6",
-        "ramsey/uuid": "^4.7",
+        "bramus/router": "1.6.1",
         "symfony/uid": "^6.3",
-        "nette/robot-loader": "^4.0",
-        "doctrine/orm": "^2.16",
         "symfony/http-foundation": "^6.3",
         "mustache/mustache": "~2.5"
     },
     "autoload": {
         "psr-4": {
             "App\\": "src/App/",
-            "Bootstrap\\": "src/Framework/"
+            "Bootstrap\\": "src/Framework/",
+
         }
     }
 }

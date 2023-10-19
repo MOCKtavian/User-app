@@ -1,0 +1,16 @@
+version: '3'
+services:
+  storageapp:
+    build:
+      context: '.'
+      args:
+        uid: 1000
+    container_name: storageapp
+    image: storageapp
+    ports:
+      - "8000:82"
+    environment:
+      - APACHE_RUN_USER=#1000
+      - APACHE_RUN_GROUP=#1000
+    volumes:
+      - .:/var/www/html
