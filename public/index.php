@@ -12,7 +12,6 @@ use Views\Home;
 //$framework->init();
 $request = Request::create("dad");
 $controller = new \App\Http\Controllers\HomeController();
-$container = new Container($request, $controller);
 $router = new \Bramus\Router\Router();
 $router->setNamespace("App\\Http\\Controllers");
 $router->get('dad', "HomeController@showDad");
@@ -20,6 +19,6 @@ $request = new Request();
 $router->get('/Home', function(){
    echo "welcome home";
 });
-
+$router->
 $router->run();
 
