@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use Bootstrap\Providers\Container;
+
 class HomeController extends Controller
 {
-//    public function __construct(
-//        private Router $router,
-//        private Request $request
-//    )
-//    {
-//    }
+    public function __construct(
+    )
+    {
+
+    }
 
     public function showDad()
     {

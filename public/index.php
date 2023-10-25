@@ -3,22 +3,24 @@
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ .  "/../routes/web.php";
 
-use Providers\Container;
-use Symfony\Component\HttpFoundation\Request;
-use Views\Home;
-
-//@todo 1) refactor cod ❌, create container ❌,2) configureaza docker❌
+//@todo 1) singleton de request in controller, 2) logica mea pe aplicatie, 3) container-ul sa poata apela functii de controller
 
 //$framework->init();
-$request = Request::create("dad");
+$builder = new \DI\ContainerBuilder();
+$builder->addDefinitions();
+
+$container = $builder->build();
+
 $controller = new \App\Http\Controllers\HomeController();
-$router = new \Bramus\Router\Router();
+
+$router = new \Bootstrap\Routing\Router($container);
 $router->setNamespace("App\\Http\\Controllers");
-$router->get('dad', "HomeController@showDad");
-$request = new Request();
-$router->get('/Home', function(){
-   echo "welcome home";
+$router->get('dad', "HomeController@showdad");
+$router->get('', function(){
+   return \Views\Home::class;
 });
-$router->
+
 $router->run();
+
+var_dump($container);
 

@@ -1,15 +1,18 @@
 <?php
 
 namespace Bootstrap\Routing;
-use App\Http\Controllers\Controller;
-use Providers\Container;
+
+use Bootstrap\Exceptions\UnresolvableControllerException;
+use Bootstrap\Exceptions\UnresolvableRequestException;
 use Closure;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\ContainerInterface;
 use RuntimeException;
 
 class Router extends \Bramus\Router\Router
 {
     public function __construct(
-        private $container,
+        private ContainerInterface $container,
     ) {
     }
 
@@ -76,54 +79,24 @@ class Router extends \Bramus\Router\Router
 
     private function makeControllerInstance(string $controller): object
     {
-        return $this->container->make($controller);
+        try {
+            return $this->container->get($controller);
+        } catch (ContainerExceptionInterface $exception) {
+            throw UnresolvableControllerException::unbound($controller, $exception);
+        }
     }
 
     private function callRouteCallback(callable $callable, array $parameters): void
     {
-        $this->container->call($callable, $parameters);
+        $callable([$this->getRequest(), ...$parameters]);
+    }
 
-        // editUser(Request $request, int $id)
-
-        // $request: from container
-        // $id: from $parameters[0]
+    private function getRequest(): object
+    {
+        try{
+            return $this->container->get('request');
+        } catch (ContainerExceptionInterface $exception) {
+            throw UnresolvableRequestException::unbound($exception);
+        }
     }
 }
-
-//class Router extends \Bramus\Router\Router
-//{
-//    public Container $container;
-//    private function invoke($fn, $params = array())
-//    {
-//        if (is_callable($fn)) {
-//            call_user_func_array($fn, $params);
-//        } // If not, check the existence of special parameters
-//        elseif (stripos($fn, '@') !== false) {
-//            // Explode segments of given route
-//            list($controller, $method) = explode('@', $fn);
-//            // Adjust controller class if namespace has been set
-//            $this->adjustControllerName($controller);
-//        }
-//        // Make sure it's callable
-//       $this->isCallable($controller, $method, $params);
-//    }
-//    public function adjustControllerName($controller) : void
-//    {
-//        if (Router::class->getNamespace() !== '') {
-//            $controller = Router::class->getNamespace() . '\\' . $controller;
-//        }
-//    }
-//    public function isCallable($controller, $method, $params) : void
-//    {
-//        $reflectedMethod = new \ReflectionMethod($controller, $method);
-//        if ($reflectedMethod->isPublic() && (!$reflectedMethod->isAbstract())) {
-//            if ($reflectedMethod->isStatic()) {
-//                forward_static_call_array(array($controller, $method), $params);
-//            }
-//        }
-//    }
-//    public static function instantiate(Controller $controller) : void
-//    {
-//        $this->container->make($controller);
-//    }
-//}
