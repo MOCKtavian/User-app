@@ -12,7 +12,7 @@ class CreateUser
     {
 
     }
-    public function create(string $name): User
+    public static function create(string $name): User
     {
         $uid = new Ulid();
         return new User((int)$uid, $name);

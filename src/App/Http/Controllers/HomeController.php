@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use Bootstrap\Providers\Container;
+
+use Bootstrap\Contracts\Storage\Storage;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
-    public function __construct(
-    )
-    {
+    public function __construct(Request $request/**, public Storage $storage*/){
 
     }
 
-    public function showDad()
+    public function showDemo()
     {
-        echo "i am here";
-        var_dump();
+//        return $this->storage->get();
+        echo 'demo';
     }
 
 

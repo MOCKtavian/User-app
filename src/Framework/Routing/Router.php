@@ -2,6 +2,8 @@
 
 namespace Bootstrap\Routing;
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\HomeController;
 use Bootstrap\Exceptions\UnresolvableControllerException;
 use Bootstrap\Exceptions\UnresolvableRequestException;
 use Closure;
