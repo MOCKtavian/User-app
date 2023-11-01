@@ -1,8 +1,8 @@
 <?php
 
-namespace Bootstrap\Engine;
+namespace Framework\Engine;
 
-use Bootstrap\Contracts\Engine\Framework;
+use Framework\Contracts\Engine\Framework;
 
 class Application implements Framework
 {

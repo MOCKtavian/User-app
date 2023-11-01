@@ -1,6 +1,6 @@
 <?php
 
-namespace Bootstrap\Contracts\Storage4;
+namespace Framework\Contracts\Storage4;
 
 interface Storable
 {

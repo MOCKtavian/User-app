@@ -2,7 +2,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "src/App",
-            "Bootstrap\\": "src/Framework/"
+            "Framework\\": "src/Framework"
         }
     },
     "require": {
@@ -10,7 +10,8 @@
         "symfony/uid": "^6.3",
         "symfony/http-foundation": "^6.3",
         "mustache/mustache": "^2.14",
-        "php-di/php-di": "^7.0"
+        "php-di/php-di": "^7.0",
+        "league/config": "^1.2"
     },
     "require-dev": {
         "symfony/var-dumper": "^6.3"

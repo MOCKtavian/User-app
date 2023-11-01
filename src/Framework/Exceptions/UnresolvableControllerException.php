@@ -1,6 +1,6 @@
 <?php
 
-namespace Bootstrap\Exceptions;
+namespace Framework\Exceptions;
 
 use RuntimeException;
 use Throwable;

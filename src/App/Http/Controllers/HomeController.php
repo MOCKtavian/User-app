@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Bootstrap\Contracts\Storage\Storage;
-use DI\Container;
-use Mustache_Engine;
-use Symfony\Component\HttpFoundation\Request;
+use Framework\Views\ViewRenderer;
 
 class HomeController extends Controller
 {
-    public function __construct(Request $request/**, public Storage $storage*/){
-
+    public function __construct(
+        private ViewRenderer $view
+    ) {
     }
 
-    public function showDemo(Container $container)
+    public function showDemo()
     {
-//        return $this->storage->get();
-        echo $container->call('mustacheEngine::render', ['\\pages\\home.mustache',  ['user' => \Symfony\Component\Uid\Ulid::generate(), 'name' => 'user']]);
-//        $tpl = $m->loadTemplate('pages\\home.mustache');
+        dd($this->view->render
+        ('\\pages\\home.mustache',
+            ['user' => \Symfony\Component\Uid\Ulid::generate(),
+                'name' => 'user']
+        ));
     }
-
-
-
 }

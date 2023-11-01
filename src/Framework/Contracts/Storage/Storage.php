@@ -1,6 +1,6 @@
 <?php
 
-namespace Bootstrap\Contracts\Storage;
+namespace Framework\Contracts\Storage;
 
 interface Storage
 {

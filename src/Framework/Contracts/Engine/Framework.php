@@ -1,6 +1,6 @@
 <?php
 
-namespace Bootstrap\Contracts\Engine;
+namespace Framework\Contracts\Engine;
 
 interface Framework
 {

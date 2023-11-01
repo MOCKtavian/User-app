@@ -1,6 +1,6 @@
 <?php
 
-namespace Bootstrap\Storage;
+namespace Framework\Storage;
 
 class FileService
 {

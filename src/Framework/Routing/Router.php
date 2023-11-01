@@ -1,11 +1,11 @@
 <?php
 
-namespace Bootstrap\Routing;
+namespace Framework\Routing;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HomeController;
-use Bootstrap\Exceptions\UnresolvableControllerException;
-use Bootstrap\Exceptions\UnresolvableRequestException;
+use Framework\Exceptions\UnresolvableControllerException;
+use Framework\Exceptions\UnresolvableRequestException;
 use Closure;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
