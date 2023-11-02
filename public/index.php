@@ -9,6 +9,13 @@ require_once __DIR__ .  "/../routes/web.php";
 
 //$framework->init();
 
+$files = glob(__DIR__.'/../config');
+
+foreach($files as $file) {
+    echo $file . "\n";
+}
+die;
+
 $builder = new \DI\ContainerBuilder();
 
 $container = $builder->build();
@@ -28,15 +35,6 @@ $container->set(ViewRenderer::class, \DI\factory(function () {
 }));
 
 $container->set('view', \DI\get(ViewRenderer::class));
-
-dd(
-    $container->get(ViewRenderer::class) === $container->get(ViewRenderer::class),
-    $container->get(ViewRenderer::class) === $container->get('view'),
-    $container->get(ViewRenderer::class),
-    $container->make(ViewRenderer::class) === $container->make(ViewRenderer::class),
-    $container->make(ViewRenderer::class) === $container->make('view'),
-    $container->make(ViewRenderer::class)
-);
 
 $router = new \Framework\Routing\Router($container);
 $router->setNamespace('App\\Http\\Controllers\\');
