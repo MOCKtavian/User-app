@@ -39,7 +39,7 @@ class DirectoryContent
         return basename($file, '.php');
     }
 
-    private function content(string $file): array
+    private function content(string $file): mixed
     {
         return require_once $file;
     }
