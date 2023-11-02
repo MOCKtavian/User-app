@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 class HomeController
 {
-    public function __invoke(): string
+    public function __invoke(): void
     {
-        return view('home', ['name' => 'Andi']);
+        echo view('home', ['name' => 'Andi']);
     }
 }
