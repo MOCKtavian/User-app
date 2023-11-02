@@ -15,7 +15,7 @@ class Router extends \Bramus\Router\Router
     ) {
     }
 
-    private function invoke($fn, $params): void
+    protected function invoke($fn, $params): void
     {
         if ($fn instanceof Closure) {
             $this->callRouteCallback($fn, $params);
