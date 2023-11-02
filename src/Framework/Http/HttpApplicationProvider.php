@@ -13,11 +13,6 @@ class HttpApplicationProvider extends ApplicationProvider
 {
     public function load(): void
     {
-        $this->setRequest();
-    }
-
-    private function setRequest(): void
-    {
         // bind a "singleton" in the container
         $this->container->set(Request::class, Request::createFromGlobals());
 

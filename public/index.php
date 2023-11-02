@@ -18,18 +18,18 @@ $container = (new ContainerBuilder)->build();
 $app = new Application(__DIR__.DIRECTORY_SEPARATOR.'..', $container);
 
 $app->register(\Framework\Config\ConfigApplicationProvider::class);
-$app->register(\Framework\Views\ViewsApplicationProvider::class);
 $app->register(\Framework\Http\HttpApplicationProvider::class);
 $app->register(\Framework\Routing\RoutingApplicationProvider::class);
+$app->register(\Framework\Views\ViewsApplicationProvider::class);
 
 $app->setup();
 
 dd(
     $container->get('config'),
-    $container->get('view'),
     $container->get('request'),
-    $container->get('router'),
+    $container->get('routing'),
+    $container->get('views'),
 );
 
-$router->run();
+$app->run();
 

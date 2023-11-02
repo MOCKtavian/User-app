@@ -16,12 +16,6 @@ class ViewsApplicationProvider extends ApplicationProvider
 {
     public function load(): void
     {
-        $this->setViewRenderer();
-        $this->setViewRendererAlias();
-    }
-
-    private function setViewRenderer(): void
-    {
         $this->container->set(
             ViewRenderer::class,
             factory(fn () => new MustacheViewRenderer(
@@ -31,10 +25,7 @@ class ViewsApplicationProvider extends ApplicationProvider
                 )
             )),
         );
-    }
 
-    private function setViewRendererAlias(): void
-    {
         $this->container->set('view', get(ViewRenderer::class));
     }
 

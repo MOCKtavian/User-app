@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Framework\Config;
+namespace Framework\Support;
 
-use Framework\Contracts\Config\ConfigProvider;
-
-class FileConfigProvider implements ConfigProvider
+class DirectoryContent
 {
     private string $directory;
+
+    public static function parse(string $directory): array
+    {
+        return (new static($directory))->get();
+    }
 
     public function __construct(string $directory)
     {
         $this->directory = rtrim($directory, DIRECTORY_SEPARATOR);
-
-        dump($this->directory);
     }
 
     public function get(): array
@@ -22,7 +23,7 @@ class FileConfigProvider implements ConfigProvider
         $items = [];
 
         foreach ($this->files() as $file) {
-            $items[$this->key($file)] = $this->items($file);
+            $items[$this->key($file)] = $this->content($file);
         }
 
         return $items;
@@ -38,7 +39,7 @@ class FileConfigProvider implements ConfigProvider
         return basename($file, '.php');
     }
 
-    private function items(string $file): array
+    private function content(string $file): array
     {
         return require_once $file;
     }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Framework\Contracts\Config;
+namespace Framework\Contracts\Routing;
 
-interface ConfigProvider
+interface RouteProvider
 {
     public function get(): array;
 }

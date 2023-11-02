@@ -3,11 +3,10 @@
 namespace Framework\Engine;
 
 use DI\Container;
-use Framework\Contracts\Engine\Framework;
 use Framework\Contracts\Engine\FrameworkProvider;
 use InvalidArgumentException;
 
-class Application implements Framework
+class Application
 {
     private array $providers = [];
 
@@ -52,5 +51,10 @@ class Application implements Framework
     private function boot(FrameworkProvider $provider): void
     {
         $provider->boot();
+    }
+
+    public function run(): void
+    {
+        $this->container->get('router')->run();
     }
 }
