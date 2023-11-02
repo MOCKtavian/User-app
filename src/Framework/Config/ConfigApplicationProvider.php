@@ -25,7 +25,7 @@ class ConfigApplicationProvider extends ApplicationProvider
             ConfigProvider::class,
             factory(function (ContainerInterface $container) {
                 return new FileConfigProvider(
-                    $container->get('base_path').'/config',
+                    $container->get('base_path').DIRECTORY_SEPARATOR.'config',
                 );
             }),
         );

@@ -15,7 +15,7 @@ class Application implements Framework
 
     public function __construct(string $basePath, Container $container)
     {
-        $container->set('base_path', $basePath);
+        $container->set('base_path', rtrim(DIRECTORY_SEPARATOR, $basePath));
 
         $this->container = $container;
     }

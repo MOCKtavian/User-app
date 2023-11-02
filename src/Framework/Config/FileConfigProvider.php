@@ -8,9 +8,13 @@ use Framework\Contracts\Config\ConfigProvider;
 
 class FileConfigProvider implements ConfigProvider
 {
-    public function __construct(
-        private string $directory,
-    ) {
+    private string $directory;
+
+    public function __construct(string $directory)
+    {
+        $this->directory = rtrim(DIRECTORY_SEPARATOR, $directory);
+
+        dump($this->directory);
     }
 
     public function get(): array
@@ -26,7 +30,7 @@ class FileConfigProvider implements ConfigProvider
 
     private function files(): array
     {
-        return glob($this->directory.'/*.php');
+        return glob($this->directory.DIRECTORY_SEPARATOR.'*.php');
     }
 
     private function key(string $file): string

@@ -1,15 +1,11 @@
 <?php
 
 use DI\ContainerBuilder;
-use Framework\Config\ConfigRepository;
-use Framework\Config\FileConfigProvider;
 use Framework\Contracts\Config\Config;
-use Framework\Contracts\Config\ConfigProvider;
 use Framework\Engine\Application;
 use Framework\Routing\Router;
 use Framework\Views\Renderers\MustacheViewRenderer;
 use Framework\Views\ViewRenderer;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use function DI\factory;
@@ -20,6 +16,8 @@ require_once __DIR__.'/../vendor/autoload.php';
 $container = (new ContainerBuilder)->build();
 
 $app = new Application(__DIR__.'/..', $container);
+
+$app->register(\Framework\Config\ConfigApplicationProvider::class);
 
 $app->setup();
 
