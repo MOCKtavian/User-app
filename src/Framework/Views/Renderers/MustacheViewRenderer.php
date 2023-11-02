@@ -12,7 +12,7 @@ class MustacheViewRenderer implements ViewRenderer
     ) {
     }
 
-    public function render(mixed $template, mixed $context): string
+    public function render(mixed $template, mixed $context = []): string
     {
         return $this->engine->render($template, $context);
     }

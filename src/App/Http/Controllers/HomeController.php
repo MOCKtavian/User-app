@@ -2,21 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Framework\Views\ViewRenderer;
-
-class HomeController extends Controller
+class HomeController
 {
-    public function __construct(
-        private ViewRenderer $view
-    ) {
-    }
-
-    public function showDemo()
+    public function __invoke(): string
     {
-        dd($this->view->render
-        ('\\pages\\home.mustache',
-            ['user' => \Symfony\Component\Uid\Ulid::generate(),
-                'name' => 'user']
-        ));
+        return view('home', ['name' => 'Andi']);
     }
 }

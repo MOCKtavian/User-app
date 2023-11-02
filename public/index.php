@@ -15,7 +15,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $container = (new ContainerBuilder)->build();
 
-$app = new Application(__DIR__.DIRECTORY_SEPARATOR.'..', $container);
+$app = Application::create(__DIR__.DIRECTORY_SEPARATOR.'..', $container);
 
 $app->register(\Framework\Config\ConfigApplicationProvider::class);
 $app->register(\Framework\Http\HttpApplicationProvider::class);

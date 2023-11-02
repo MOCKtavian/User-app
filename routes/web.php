@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Framework\Routing\Router;
 
 return function (Router $router) {
-    $router->get('/', function () {
-        return 'demo';
-    });
+    $router->get('/', HomeController::class);
 };
