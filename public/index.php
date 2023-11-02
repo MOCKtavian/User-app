@@ -18,30 +18,20 @@ $container = (new ContainerBuilder)->build();
 $app = new Application(__DIR__.DIRECTORY_SEPARATOR.'..', $container);
 
 $app->register(\Framework\Config\ConfigApplicationProvider::class);
+$app->register(\Framework\Views\ViewsApplicationProvider::class);
 
 $app->setup();
 
-dd($container->get(Config::class));
+dd(
+    $container->get(Config::class),
+    $container->get(ViewRenderer::class),
+);
 
 // bind a "singleton" in the container
 $container->set(Request::class, Request::createFromGlobals());
 
 // set an alias for a bound form the container
 $container->set('request', get(Request::class));
-
-$container->set(
-    ViewRenderer::class,
-    factory(function () {
-        return new MustacheViewRenderer(
-            new Mustache_Engine([
-                    'loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../resources/views/'),
-                ]
-            )
-        );
-    }),
-);
-
-$container->set('view', get(ViewRenderer::class));
 
 $router = new Router($container);
 $router->setNamespace('App\\Http\\Controllers\\');
