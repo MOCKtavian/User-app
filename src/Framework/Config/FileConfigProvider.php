@@ -12,7 +12,7 @@ class FileConfigProvider implements ConfigProvider
 
     public function __construct(string $directory)
     {
-        $this->directory = rtrim(DIRECTORY_SEPARATOR, $directory);
+        $this->directory = rtrim($directory, DIRECTORY_SEPARATOR);
 
         dump($this->directory);
     }
