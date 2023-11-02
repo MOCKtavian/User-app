@@ -19,13 +19,12 @@ $container->set(Request::class, Request::createFromGlobals());
 // set an alias for a bound form the container
 $container->set('request', \DI\get(Request::class));
 
-$container->set(ViewRenderer::class, \DI\value(function () {
-//    return new MustacheViewRenderer(
-//        new Mustache_Engine([
-//            'loader' => new Mustache_Loader_FilesystemLoader(__DIR__. '/../resources/views/')
-//        ]
-//    ));
-    return time();
+$container->set(ViewRenderer::class, \DI\factory(function () {
+    return new MustacheViewRenderer(
+        new Mustache_Engine([
+            'loader' => new Mustache_Loader_FilesystemLoader(__DIR__. '/../resources/views/')
+        ]
+    ));
 }));
 
 $container->set('view', \DI\get(ViewRenderer::class));
