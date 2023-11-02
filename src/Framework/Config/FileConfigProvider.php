@@ -40,6 +40,6 @@ class FileConfigProvider implements ConfigProvider
 
     private function items(string $file): array
     {
-        require_once $file;
+        return rgequire_once $file;
     }
 }
