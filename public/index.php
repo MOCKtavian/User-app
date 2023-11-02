@@ -1,5 +1,6 @@
 <?php
 
+use Framework\Contracts\Config\Config;
 use Framework\Views\Renderers\MustacheViewRenderer;
 use Framework\Views\ViewRenderer;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,20 @@ die;
 $builder = new \DI\ContainerBuilder();
 
 $container = $builder->build();
+
+$container->set(Config::class, \DI\factory(function () {
+    $files = glob(__DIR__.'/../config/*.php');
+
+    $items = [];
+
+    foreach($files as $file) {
+        $items[basename($file)] = require_once $file;
+    }
+
+    return new \Framework\Config\ConfigRepository($items);
+}));
+
+dd($container->get(Config::class));
 
 // bind a "singleton" in the container
 $container->set(Request::class, Request::createFromGlobals());
