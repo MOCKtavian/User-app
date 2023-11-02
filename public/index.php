@@ -22,6 +22,10 @@ $app->register(\Framework\Http\HttpApplicationProvider::class);
 $app->register(\Framework\Routing\RoutingApplicationProvider::class);
 $app->register(\Framework\Views\ViewsApplicationProvider::class);
 
+foreach (config('app.providers', []) as $provider) {
+    $app->register($provider);
+}
+
 $app->setup();
 
 //dd(

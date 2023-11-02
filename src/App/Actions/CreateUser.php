@@ -1,20 +1,25 @@
 <?php
 
-namespace Actions;
+namespace App\Actions;
 
-use App\Repositories\UserRepository;
-use Entities\User;
-use Symfony\Component\Uid\Ulid;
-//DTO
+use App\Contracts\UserRepository;
+use App\Data\UserData;
+use App\Entities\User;
+use App\Exceptions\UserAlreadyExistsException;
+
 class CreateUser
 {
-    public function __construct(UserRepository $userRepository)
-    {
-
+    public function __construct(
+        protected UserRepository $repository,
+    ) {
     }
-    public static function create(string $name): User
+
+    public function execute(UserData $data): User
     {
-        $uid = new Ulid();
-        return new User((int)$uid, $name);
+        if ($this->repository->findWhereEmail($data->email)) {
+            throw UserAlreadyExistsException::exists($data->email);
+        }
+
+        return $this->repository->create($data);
     }
 }

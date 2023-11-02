@@ -1,12 +1,21 @@
 <?php
 
-namespace Contracts;
+declare(strict_types=1);
 
-use Entities\User;
+namespace App\Contracts;
+
+use App\Data\UserData;
+use App\Entities\User;
 
 interface UserRepository
 {
-    public function add(User $user): void;
+    public function create(UserData $data): User;
 
-    public function find(int $id): User;
+    public function get(int $id): User;
+
+    public function find(int $id): ?User;
+
+    public function findWhereEmail(string $email): ?User;
+
+    public function update(User $user): void;
 }

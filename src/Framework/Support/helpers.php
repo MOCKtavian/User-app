@@ -14,7 +14,7 @@ if (!function_exists('container')) {
 }
 
 if (!function_exists('config')) {
-    /** @return Config|mixed * */
+    /** @return Config|mixed */
     function config(string $key = null, mixed $default = null): mixed
     {
         /** @var Config $config */
