@@ -10,6 +10,7 @@ use Framework\Engine\ApplicationProvider;
 use Psr\Container\ContainerInterface;
 
 use function DI\factory;
+use function DI\get;
 
 class ConfigApplicationProvider extends ApplicationProvider
 {
@@ -17,6 +18,7 @@ class ConfigApplicationProvider extends ApplicationProvider
     {
         $this->setConfigProvider();
         $this->setConfig();
+        $this->setConfigAlias();
     }
 
     private function setConfigProvider(): void
@@ -42,6 +44,11 @@ class ConfigApplicationProvider extends ApplicationProvider
                 return new ConfigRepository($provider->get());
             }),
         );
+    }
+
+    private function setConfigAlias(): void
+    {
+        $this->container->set('config', get(Config::class));
     }
 
     public function boot(): void

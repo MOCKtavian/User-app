@@ -8,7 +8,6 @@ use Framework\Engine\ApplicationProvider;
 use Framework\Views\Renderers\MustacheViewRenderer;
 use Mustache_Engine;
 use Mustache_Loader_FilesystemLoader;
-use Psr\Container\ContainerInterface;
 
 use function DI\factory;
 use function DI\get;
@@ -16,6 +15,12 @@ use function DI\get;
 class ViewsApplicationProvider extends ApplicationProvider
 {
     public function load(): void
+    {
+        $this->setViewRenderer();
+        $this->setViewRendererAlias();
+    }
+
+    private function setViewRenderer(): void
     {
         $this->container->set(
             ViewRenderer::class,
@@ -26,7 +31,10 @@ class ViewsApplicationProvider extends ApplicationProvider
                 )
             )),
         );
+    }
 
+    private function setViewRendererAlias(): void
+    {
         $this->container->set('view', get(ViewRenderer::class));
     }
 

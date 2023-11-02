@@ -19,19 +19,15 @@ $app = new Application(__DIR__.DIRECTORY_SEPARATOR.'..', $container);
 
 $app->register(\Framework\Config\ConfigApplicationProvider::class);
 $app->register(\Framework\Views\ViewsApplicationProvider::class);
+$app->register(\Framework\Http\HttpApplicationProvider::class);
 
 $app->setup();
 
 dd(
-    $container->get(Config::class),
-    $container->get(ViewRenderer::class),
+    $container->get('config'),
+    $container->get('view'),
+    $container->get('request'),
 );
-
-// bind a "singleton" in the container
-$container->set(Request::class, Request::createFromGlobals());
-
-// set an alias for a bound form the container
-$container->set('request', get(Request::class));
 
 $router = new Router($container);
 $router->setNamespace('App\\Http\\Controllers\\');
