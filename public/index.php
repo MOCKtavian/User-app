@@ -1,40 +1,27 @@
 <?php
 
+use DI\ContainerBuilder;
+use Framework\Config\ConfigRepository;
+use Framework\Config\FileConfigProvider;
 use Framework\Contracts\Config\Config;
 use Framework\Contracts\Config\ConfigProvider;
+use Framework\Engine\Application;
+use Framework\Routing\Router;
 use Framework\Views\Renderers\MustacheViewRenderer;
 use Framework\Views\ViewRenderer;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ .  "/../routes/web.php";
+use function DI\factory;
+use function DI\get;
 
-//$framework->init();
+require_once __DIR__.'/../vendor/autoload.php';
 
-$files = glob(__DIR__.'/../config/*.php');
+$container = (new ContainerBuilder)->build();
 
-foreach($files as $file) {
-    echo $file . "\n";
-}
-die;
+$app = new Application(__DIR__.'/..', $container);
 
-$builder = new \DI\ContainerBuilder();
-
-$container = $builder->build();
-
-$container->set(ConfigProvider::class, \DI\factory(function () {
-    return new \Framework\Config\FileConfigProvider(
-        __DIR__.'/../config/*.php'
-    );
-}));
-
-$container->set(Config::class, \DI\factory(function (ContainerInterface $container) {
-    /** @var ConfigProvider $provider */
-    $provider = $container->get(ConfigProvider::class);
-
-    return new \Framework\Config\ConfigRepository($provider->get());
-}));
+$app->setup();
 
 dd($container->get(Config::class));
 
@@ -42,19 +29,23 @@ dd($container->get(Config::class));
 $container->set(Request::class, Request::createFromGlobals());
 
 // set an alias for a bound form the container
-$container->set('request', \DI\get(Request::class));
+$container->set('request', get(Request::class));
 
-$container->set(ViewRenderer::class, \DI\factory(function () {
-    return new MustacheViewRenderer(
-        new Mustache_Engine([
-            'loader' => new Mustache_Loader_FilesystemLoader(__DIR__. '/../resources/views/')
-        ]
-    ));
-}));
+$container->set(
+    ViewRenderer::class,
+    factory(function () {
+        return new MustacheViewRenderer(
+            new Mustache_Engine([
+                    'loader' => new Mustache_Loader_FilesystemLoader(__DIR__.'/../resources/views/'),
+                ]
+            )
+        );
+    }),
+);
 
-$container->set('view', \DI\get(ViewRenderer::class));
+$container->set('view', get(ViewRenderer::class));
 
-$router = new \Framework\Routing\Router($container);
+$router = new Router($container);
 $router->setNamespace('App\\Http\\Controllers\\');
 $router->get('demo', 'HomeController@showDemo');
 $router->run();

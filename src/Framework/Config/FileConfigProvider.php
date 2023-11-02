@@ -9,7 +9,7 @@ use Framework\Contracts\Config\ConfigProvider;
 class FileConfigProvider implements ConfigProvider
 {
     public function __construct(
-        private string $path,
+        private string $directory,
     ) {
     }
 
@@ -26,7 +26,7 @@ class FileConfigProvider implements ConfigProvider
 
     private function files(): array
     {
-        return glob($this->path);
+        return glob($this->directory.'/*.php');
     }
 
     private function key(string $file): string
