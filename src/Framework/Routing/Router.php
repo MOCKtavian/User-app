@@ -2,8 +2,6 @@
 
 namespace Framework\Routing;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\HomeController;
 use Framework\Exceptions\UnresolvableControllerException;
 use Framework\Exceptions\UnresolvableRequestException;
 use Closure;
