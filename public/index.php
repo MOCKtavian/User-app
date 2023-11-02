@@ -32,7 +32,10 @@ $container->set('view', \DI\get(ViewRenderer::class));
 dd(
     $container->get(ViewRenderer::class) === $container->get(ViewRenderer::class),
     $container->get(ViewRenderer::class) === $container->get('view'),
-    $container->get(ViewRenderer::class)
+    $container->get(ViewRenderer::class),
+    $container->make(ViewRenderer::class) === $container->make(ViewRenderer::class),
+    $container->make(ViewRenderer::class) === $container->make('view'),
+    $container->make(ViewRenderer::class)
 );
 
 $router = new \Framework\Routing\Router($container);
