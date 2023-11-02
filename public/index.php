@@ -1,8 +1,10 @@
 <?php
 
 use Framework\Contracts\Config\Config;
+use Framework\Contracts\Config\ConfigProvider;
 use Framework\Views\Renderers\MustacheViewRenderer;
 use Framework\Views\ViewRenderer;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -21,16 +23,17 @@ $builder = new \DI\ContainerBuilder();
 
 $container = $builder->build();
 
-$container->set(Config::class, \DI\factory(function () {
-    $files = glob(__DIR__.'/../config/*.php');
+$container->set(ConfigProvider::class, \DI\factory(function () {
+    return new \Framework\Config\FileConfigProvider(
+        __DIR__.'/../config/*.php'
+    );
+}));
 
-    $items = [];
+$container->set(Config::class, \DI\factory(function (ContainerInterface $container) {
+    /** @var ConfigProvider $provider */
+    $provider = $container->get(ConfigProvider::class);
 
-    foreach($files as $file) {
-        $items[basename($file)] = require_once $file;
-    }
-
-    return new \Framework\Config\ConfigRepository($items);
+    return new \Framework\Config\ConfigRepository($provider->get());
 }));
 
 dd($container->get(Config::class));

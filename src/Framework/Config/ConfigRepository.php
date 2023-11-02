@@ -17,9 +17,4 @@ class ConfigRepository implements Config
     {
         // TODO: Implement get() method.
     }
-
-    public function set(string $key, mixed $value): void
-    {
-        // TODO: Implement set() method.
-    }
 }
