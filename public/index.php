@@ -24,12 +24,12 @@ $app->register(\Framework\Views\ViewsApplicationProvider::class);
 
 $app->setup();
 
-dd(
-    $container->get('config'),
-    $container->get('request'),
-    $container->get('router'),
-    $container->get('view'),
-);
+//dd(
+//    $container->get('config'),
+//    $container->get('request'),
+//    $container->get('router'),
+//    $container->get('view'),
+//);
 
 $app->run();
 

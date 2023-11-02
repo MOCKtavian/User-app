@@ -2,17 +2,16 @@
 
 namespace Framework\Routing;
 
+use DI\Container;
 use Framework\Exceptions\UnresolvableControllerException;
-use Framework\Exceptions\UnresolvableRequestException;
 use Closure;
 use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
 use RuntimeException;
 
 class Router extends \Bramus\Router\Router
 {
     public function __construct(
-        private ContainerInterface $container,
+        private Container $container,
     ) {
     }
 
@@ -88,15 +87,6 @@ class Router extends \Bramus\Router\Router
 
     private function callRouteCallback(callable $callable, array $parameters): void
     {
-        $callable([$this->getRequest(), ...$parameters]);
-    }
-
-    private function getRequest(): object
-    {
-        try{
-            return $this->container->get('request');
-        } catch (ContainerExceptionInterface $exception) {
-            throw UnresolvableRequestException::unbound($exception);
-        }
+        $this->container->call($callable, $parameters);
     }
 }
