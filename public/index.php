@@ -9,7 +9,7 @@ require_once __DIR__ .  "/../routes/web.php";
 
 //$framework->init();
 
-$files = glob(__DIR__.'/../config');
+$files = glob(__DIR__.'/../config/*.php');
 
 foreach($files as $file) {
     echo $file . "\n";
