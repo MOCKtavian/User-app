@@ -27,8 +27,8 @@ $app->setup();
 dd(
     $container->get('config'),
     $container->get('request'),
-    $container->get('routing'),
-    $container->get('views'),
+    $container->get('router'),
+    $container->get('view'),
 );
 
 $app->run();
