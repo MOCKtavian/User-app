@@ -3,6 +3,7 @@
 namespace Framework\Engine;
 
 use DI\Container;
+use Framework\Contracts\Engine\FrameworkBootstrapper;
 use Framework\Contracts\Engine\FrameworkProvider;
 use InvalidArgumentException;
 
@@ -10,7 +11,7 @@ class Application
 {
     private array $providers = [];
 
-    private Container $container;
+    public readonly Container $container;
 
     private static Application $instance;
 
@@ -18,6 +19,11 @@ class Application
     {
         static::$instance = new static($basePath, $container);
 
+        return static::$instance;
+    }
+
+    public static function instance(): static
+    {
         return static::$instance;
     }
 
@@ -31,6 +37,17 @@ class Application
         $container->set('base_path', rtrim($basePath, DIRECTORY_SEPARATOR));
 
         $this->container = $container;
+    }
+
+    public function bootstrap(string ...$bootstrappers): static
+    {
+        foreach ($bootstrappers as $bootstrapper) {
+            if (!is_a($bootstrapper, FrameworkBootstrapper::class, true)) {
+                throw new InvalidArgumentException("The class `{$bootstrapper}` is not a framework bootstrapper.");
+            }
+
+            $this->container->make($bootstrapper)->bootstrap($this);
+        }
     }
 
     public function register(string $provider): static

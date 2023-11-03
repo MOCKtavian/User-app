@@ -2,21 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Framework\Config;
+namespace Framework\Engine\Bootstrap;
 
+use Framework\Config\ConfigRepository;
 use Framework\Contracts\Config\Config;
-use Framework\Engine\ApplicationProvider;
+use Framework\Contracts\Engine\FrameworkBootstrapper;
+use Framework\Engine\Application;
 use Framework\Support\DirectoryContent;
 use Psr\Container\ContainerInterface;
 
 use function DI\factory;
 use function DI\get;
 
-class ConfigApplicationProvider extends ApplicationProvider
+class LoadConfig implements FrameworkBootstrapper
 {
-    public function load(): void
+    public function bootstrap(Application $app): void
     {
-        $this->container->set(
+        $app->container->set(
             Config::class,
             factory(function (ContainerInterface $container) {
                 return new ConfigRepository(
@@ -27,11 +29,6 @@ class ConfigApplicationProvider extends ApplicationProvider
             }),
         );
 
-        $this->container->set('config', get(Config::class));
-    }
-
-    public function boot(): void
-    {
-        // ...
+        $app->container->set('config', get(Config::class));
     }
 }

@@ -15,6 +15,13 @@ class ConfigRepository implements Config
 
     public function get(string $key, mixed $default = null): mixed
     {
-        // TODO: Implement get() method.
+        // @todo
+
+        return $this->default($default);
+    }
+
+    private function default(mixed $default): mixed
+    {
+        return is_callable($default) ? $default() : $default;
     }
 }
