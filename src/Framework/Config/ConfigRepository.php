@@ -16,6 +16,9 @@ class ConfigRepository implements Config
     public function get(string $key, mixed $default = null): mixed
     {
         // @todo
+        if ($key === 'app.providers') {
+            return $this->items['app']['providers'];
+        }
 
         return $this->default($default);
     }

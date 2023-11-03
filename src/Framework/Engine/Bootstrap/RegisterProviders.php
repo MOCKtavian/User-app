@@ -35,6 +35,6 @@ class RegisterProviders implements FrameworkBootstrapper
 
     private function getProvidersFromConfig(Application $app): array
     {
-        $app->container->get('config')->get('app.providers', []);
+        return $app->container->get('config')->get('app.providers', []);
     }
 }

@@ -48,6 +48,8 @@ class Application
 
             $this->container->make($bootstrapper)->bootstrap($this);
         }
+
+        return $this;
     }
 
     public function register(string $provider): static
