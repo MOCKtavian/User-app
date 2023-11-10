@@ -18,6 +18,7 @@ class Application
     public static function create(string $basePath, Container $container): static
     {
         static::$instance = new static($basePath, $container);
+        static::$instance = new static($basePath, $container);
 
         return static::$instance;
     }
@@ -58,8 +59,7 @@ class Application
             throw new InvalidArgumentException("The class `{$provider}` is not a framework provider.");
         }
 
-        $this->providers[] = new $provider($this->container);
-
+        $a = $this->providers[] = new $provider($this->container);
         return $this;
     }
 

@@ -25,7 +25,6 @@ class DirectoryContent
         foreach ($this->files() as $file) {
             $items[$this->key($file)] = $this->content($file);
         }
-
         return $items;
     }
 

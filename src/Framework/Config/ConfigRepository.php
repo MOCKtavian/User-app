@@ -17,7 +17,9 @@ class ConfigRepository implements Config
     {
         // @todo
         if ($key === 'app.providers') {
+            dump($key);
             return $this->items['app']['providers'];
+
         }
 
         return $this->default($default);
