@@ -2,6 +2,7 @@
 
 use App\Contracts\UserRepository;
 use DI\ContainerBuilder;
+use Framework\Database\Database;
 use Framework\Engine\Application;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -14,7 +15,6 @@ $app->bootstrap(
     \Framework\Engine\Bootstrap\RegisterProviders::class,
     \Framework\Engine\Bootstrap\SetupApplication::class,
 );
-
 //dd(
 //    $container->get('config'),
 //    $container->get('request'),

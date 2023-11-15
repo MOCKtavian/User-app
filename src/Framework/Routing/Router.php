@@ -79,7 +79,6 @@ class Router extends \Bramus\Router\Router
     private function makeControllerInstance(string $controller): object
     {
         try {
-            dump($this->container->get($controller));
             return $this->container->get($controller);
         } catch (ContainerExceptionInterface $exception) {
             throw UnresolvableControllerException::unbound($controller, $exception);

@@ -9,7 +9,12 @@ class DatabaseProvider extends ApplicationProvider
 
     public function load(): void
     {
-
+        $this->container->set(
+            Database::class,
+            \DI\factory(function () {
+                return (new Database())->getPdo();
+            })
+        );
     }
 
     public function boot(): void

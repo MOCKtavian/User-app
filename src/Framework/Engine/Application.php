@@ -59,7 +59,7 @@ class Application
             throw new InvalidArgumentException("The class `{$provider}` is not a framework provider.");
         }
 
-        $a = $this->providers[] = new $provider($this->container);
+        $this->providers[] = new $provider($this->container);
         return $this;
     }
 
