@@ -15,7 +15,7 @@ class UserController
         $action->execute(
             new UserData(
                 $request->request->get('email'),
-                $request->request->get('name'),
+                $request->request->get('nume'),
             ),
         );
     }

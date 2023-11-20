@@ -10,15 +10,15 @@ class DatabaseProvider extends ApplicationProvider
     public function load(): void
     {
         $this->container->set(
-            Database::class,
+            DatabasePDO::class,
             \DI\factory(function () {
-                return (new Database())->getPdo();
+                return new DatabasePDO();
             })
         );
     }
 
     public function boot(): void
     {
-        //...
+       $this->container->get(DatabasePDO::class)->insert('users', 'marius', 'marius@gmail.com');
     }
 }

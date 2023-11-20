@@ -9,7 +9,7 @@ class HomeController
         echo view('pages/home.mustache', ['name' => 'Andi']);
     }
 
-    public function giveLogin()
+    public function getHome()
     {
         echo view('pages/home.mustache', ['name' => 'asdsa']);
     }

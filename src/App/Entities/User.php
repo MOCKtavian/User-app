@@ -11,14 +11,14 @@ class User
         return new static(
             id: $id,
             email: $data->email,
-            name: $data->name
+            nume: $data->nume
         );
     }
 
     public function __construct(
         private readonly int $id,
         private string $email,
-        private string $name,
+        private string $nume,
     ) {
     }
 
@@ -34,6 +34,6 @@ class User
 
     public function name(): string
     {
-        return $this->name;
+        return $this->nume;
     }
 }

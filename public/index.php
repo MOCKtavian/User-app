@@ -2,7 +2,7 @@
 
 use App\Contracts\UserRepository;
 use DI\ContainerBuilder;
-use Framework\Database\Database;
+use Framework\Database\DatabasePDO;
 use Framework\Engine\Application;
 
 require_once __DIR__.'/../vendor/autoload.php';
