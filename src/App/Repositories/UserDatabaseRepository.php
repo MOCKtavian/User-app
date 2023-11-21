@@ -6,9 +6,15 @@ use App\Contracts\UserRepository;
 use App\Data\UserData;
 use App\Entities\User;
 use App\Exceptions\EntityNotFoundException;
+use Framework\Database\Database;
+use Framework\Database\DatabasePDO;
+use PDO;
 
 class UserDatabaseRepository implements UserRepository
 {
+    public function __construct(
+        public DatabasePDO $databasePDO
+    ){}
     public function create(UserData $data): User
     {
         return User::create($this->insert($data), $data);
@@ -27,12 +33,13 @@ class UserDatabaseRepository implements UserRepository
 
     public function find(int $id): ?User
     {
-        // TODO: Implement find() method.
+        return $this->databasePDO->fetch('users', '$id');
     }
 
     public function findWhereEmail(string $email): ?User
     {
-        // TODO: Implement findWhereEmail() method.
+         $stmt = $this->databasePDO->$this->pdo->prepare("SELECT FROM users WHERE email = $email");
+         return $stmt->execute();
     }
 
     public function update(User $user): void

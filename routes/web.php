@@ -6,7 +6,5 @@ use Framework\Routing\Router;
 return function (Router $router) {
     $router->setNamespace('\App\Http\Controllers');
     $router->get('/', 'HomeController@getHome');
-    $router->get('/test', function () {
-        echo 'demo';
-    });
+    $router->get('/test', 'HomeController@getHome');
 };

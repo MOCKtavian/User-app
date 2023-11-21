@@ -28,12 +28,10 @@ class DatabasePDO implements Database
     public function fetch(string $table, string $id)
     {
         $data = [
-            'table' => $table,
             'id' => $id,
         ];
-        $table = 'users';
-        $stmt = $this->pdo->prepare("SELECT * FROM $table WHERE id = $id");
-        $stmt->execute();
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id ");
+        $stmt->execute($data);
         return $stmt->fetch();
     }
 
@@ -47,7 +45,6 @@ class DatabasePDO implements Database
     public function delete(string $table, string $id)
     {
         $data = [
-            'table' => $table,
             'id' => $id,
         ];
         $stmt = $this->pdo->prepare('DELETE FROM users WHERE id=:id');
@@ -62,7 +59,6 @@ class DatabasePDO implements Database
     public function insert(string $table, ...$params)
     {
         $data = [
-            'table' => $table,
             'nume' => $params[0],
             'email' => $params[1],
         ];

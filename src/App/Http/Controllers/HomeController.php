@@ -11,6 +11,6 @@ class HomeController
 
     public function getHome()
     {
-        echo view('pages/home.mustache', ['name' => 'asdsa']);
+        echo view('pages/home.mustache', ['name' => 'asdsa', 'title' => 'register']);
     }
 }
