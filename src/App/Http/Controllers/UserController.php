@@ -12,11 +12,13 @@ class UserController
 {
     public function create(Request $request, CreateUser $action): void
     {
-        $action->execute(
+        dump($action->execute(
             new UserData(
                 $request->request->get('email'),
                 $request->request->get('nume'),
             ),
-        );
+
+        ))  ;
+
     }
 }

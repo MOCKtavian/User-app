@@ -19,6 +19,5 @@ class DatabaseProvider extends ApplicationProvider
 
     public function boot(): void
     {
-       dump($this->container->get(DatabasePDO::class)->fetch('users', '1'));
     }
 }

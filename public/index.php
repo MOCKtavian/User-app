@@ -15,7 +15,7 @@ $app->bootstrap(
     \Framework\Engine\Bootstrap\RegisterProviders::class,
     \Framework\Engine\Bootstrap\SetupApplication::class,
 );
-dump($container->get('request'));
+
 //dd(
 //    $container->get('config'),
 //    $container->get('request'),
