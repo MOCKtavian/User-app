@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Framework\Engine\Bootstrap;
 
+use App\Providers\RepositoriesApplicationProvider;
 use Framework\Contracts\Engine\FrameworkBootstrapper;
 use Framework\Database\DatabaseProvider;
 use Framework\Engine\Application;
@@ -18,6 +19,7 @@ class RegisterProviders implements FrameworkBootstrapper
         HttpApplicationProvider::class,
         RoutingApplicationProvider::class,
         ViewsApplicationProvider::class,
+        RepositoriesApplicationProvider::class
     ];
 
     public function bootstrap(Application $app): void

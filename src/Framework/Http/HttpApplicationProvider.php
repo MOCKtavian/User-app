@@ -16,7 +16,7 @@ class HttpApplicationProvider extends ApplicationProvider
         // bind a "singleton" in the container
         $this->container->set(Request::class, Request::createFromGlobals());
 
-        // set an alias for a binding from the container
+        // set an alias for a binding inside the container
         $this->container->set('request', get(Request::class));
     }
 

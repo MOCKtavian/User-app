@@ -33,13 +33,17 @@ class UserDatabaseRepository implements UserRepository
 
     public function find(int $id): ?User
     {
-        return $this->databasePDO->fetch('users', '$id');
+        return $this->databasePDO->fetch('users', $id);
     }
 
-    public function findWhereEmail(string $email): ?User
+    public function findWhereEmail(string $email)
     {
-         $stmt = $this->databasePDO->$this->pdo->prepare("SELECT FROM users WHERE email = $email");
-         return $stmt->execute();
+        $data = [':email' => $email];
+
+        $stmt = $this->databasePDO->getPDO()->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->execute($data);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update(User $user): void

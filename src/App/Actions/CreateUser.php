@@ -16,10 +16,10 @@ class CreateUser
 
     public function execute(UserData $data): User
     {
+        $this->repository->get(1);
         if ($this->repository->findWhereEmail($data->email)) {
             throw UserAlreadyExistsException::exists($data->email);
         }
-
         return $this->repository->create($data);
     }
 }

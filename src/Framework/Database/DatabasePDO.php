@@ -25,6 +25,11 @@ class DatabasePDO implements Database
         $this->pdo = new PDO($dsn, $this->user, $this->pass, $options);
     }
 
+    public function getPDO()
+    {
+        return $this->pdo;
+    }
+
     public function fetch(string $table, string $id)
     {
         $data = [

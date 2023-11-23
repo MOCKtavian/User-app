@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Framework\Routing;
 
+use App\Contracts\UserRepository;
+use App\Repositories\UserDatabaseRepository;
 use Framework\Engine\ApplicationProvider;
 
 use Framework\Support\DirectoryContent;
@@ -18,8 +20,6 @@ class RoutingApplicationProvider extends ApplicationProvider
             Router::class,
             \DI\factory(function () {
                 $router = new Router($this->container);
-
-                $router->setNamespace('App\\Http\\Controllers\\');
 
                 return $router;
             }),

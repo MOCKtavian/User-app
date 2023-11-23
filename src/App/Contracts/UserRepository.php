@@ -11,11 +11,11 @@ interface UserRepository
 {
     public function create(UserData $data): User;
 
-    public function get(int $id): User;
+    public function get(int $id);
 
-    public function find(int $id): ?User;
+    public function find(int $id);
 
-    public function findWhereEmail(string $email): ?User;
+    public function findWhereEmail(string $email);
 
     public function update(User $user): void;
 }

@@ -8,14 +8,14 @@ use Closure;
 use Psr\Container\ContainerExceptionInterface;
 use RuntimeException;
 
-class Router extends \Bramus\Router\Router
+class Router extends BramusRouter
 {
     public function __construct(
         private Container $container,
     ) {
     }
 
-    protected function invoke($fn, $params): void
+    protected function invoke($fn, $params =[]): void
     {
         if ($fn instanceof Closure) {
             $this->callRouteCallback($fn, $params);
@@ -67,7 +67,8 @@ class Router extends \Bramus\Router\Router
             throw new RuntimeException("Controller class `{$controller}` does not exist.");
         }
 
-        if (!method_exists($method, $controller)) {
+        if (!method_exists($controller,$method)) {
+            dump($method, $controller);
             throw new RuntimeException("Controller class `{$controller}` does not have the method `{$method}`.");
         }
 

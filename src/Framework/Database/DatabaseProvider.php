@@ -19,5 +19,6 @@ class DatabaseProvider extends ApplicationProvider
 
     public function boot(): void
     {
+        //...
     }
 }
