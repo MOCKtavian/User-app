@@ -8,6 +8,6 @@ return function (Router $router) {
     $router->setNamespace('App\Http\Controllers');
     $router->get('/', 'HomeController@getHome');
     $router->get('/test', 'HomeController@getHome');
-    $router->post('/users', 'UserController@create');
-    $router->get( '/users/{id}', 'UserController@get');
+    $router->post('/users', 'UserController@get');
+    $router->post('/users/register', 'UserController@create');
 };

@@ -42,17 +42,21 @@ class DatabasePDO implements Database
 
     public function fetchAll(string $table): array
     {
-        $stmt = $this->pdo->prepare('SELECT * FROM users');
-        $stmt->execute();
+        $data = [
+            'table' => $table
+        ];
+        $stmt = $this->pdo->prepare('SELECT * FROM :table');
+        $stmt->execute($data);
         return $stmt->fetchAll();
     }
 
     public function delete(string $table, string $id)
     {
         $data = [
+            'table' => $table,
             'id' => $id,
         ];
-        $stmt = $this->pdo->prepare('DELETE FROM users WHERE id=:id');
+        $stmt = $this->pdo->prepare('DELETE FROM :table WHERE id=:id');
         $stmt->execute($data);
     }
 

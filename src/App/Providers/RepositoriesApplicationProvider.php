@@ -15,17 +15,15 @@ class RepositoriesApplicationProvider extends ApplicationProvider
 {
     public function load(): void
     {
-
-
+        $this->container->set(UserRepository::class,
+            \DI\factory(function() {
+                return new UserDatabaseRepository($this->container->get(DatabasePDO::class));
+            })
+        );
     }
 
     public function boot(): void
     {
-        $this->container->set(UserRepository::class,
-            \DI\factory(function() {
-                $userDatabaseRepository = new UserDatabaseRepository($this->container->get(DatabasePDO::class));
-                return $userDatabaseRepository;
-            })
-        );
+
     }
 }

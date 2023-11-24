@@ -10,13 +10,14 @@ use App\Exceptions\UserAlreadyExistsException;
 class CreateUser
 {
     public function __construct(
-        protected UserRepository $repository,
+        private UserRepository $repository,
     ) {
     }
 
     public function execute(UserData $data): User
     {
-        $this->repository->get(1);
+//        $this->repository->get(1);
+
         if ($this->repository->findWhereEmail($data->email)) {
             throw UserAlreadyExistsException::exists($data->email);
         }

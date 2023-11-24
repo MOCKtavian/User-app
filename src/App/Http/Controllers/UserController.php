@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController
 {
+
     public function create(Request $request, CreateUser $action): void
     {
         $action->execute(
@@ -20,9 +21,10 @@ class UserController
         );
     }
 
-    public function get($id, Request $request)
+    public function get(Request $request)
     {
-        dump($request, $id);
+
+        echo view('pages/usermenu.mustache', ['name' => $request->request->get('email'), 'email' => $request->request->get('nume')]);
 
     }
 }

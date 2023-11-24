@@ -14,7 +14,9 @@ class UserDatabaseRepository implements UserRepository
 {
     public function __construct(
         public DatabasePDO $databasePDO
-    ){}
+    ) {
+    }
+
     public function create(UserData $data): User
     {
         return User::create($this->insert($data), $data);
@@ -22,8 +24,11 @@ class UserDatabaseRepository implements UserRepository
 
     private function insert(UserData $data): int
     {
-        // insert and return the id
-        return 1;
+        dump(array($data));
+        $stmt = $this->databasePDO->getPDO()
+            ->prepare("INSERT INTO `users` (`email`, `nume`) VALUES ($data->email, $data->nume)");
+        $stmt->execute();
+        return $this->findWhereEmail($data->email)->id();
     }
 
     public function get(int $id): User
@@ -31,19 +36,35 @@ class UserDatabaseRepository implements UserRepository
         return $this->find($id) ?? throw EntityNotFoundException::missing(User::class, $id);
     }
 
-    public function find(int $id): ?User
+    public function find(int $id): User
     {
-        return $this->databasePDO->fetch('users', $id);
+        $fetch = $this->databasePDO->fetch('users', $id);
+        return new User(
+            $fetch['id'],
+            $fetch['nume'],
+            $fetch['email']
+        );
     }
 
-    public function findWhereEmail(string $email)
+    public function findWhereEmail(string $email): ?User
     {
-        $data = [':email' => $email];
-
-        $stmt = $this->databasePDO->getPDO()->prepare("SELECT * FROM users WHERE email = :email");
+        $data = [
+            'email' => $email,
+        ];
+        $stmt = $this->databasePDO->getPDO()
+            ->prepare("SELECT * FROM `users` WHERE email = :email ");
         $stmt->execute($data);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $fetch = ($stmt->fetchAll(PDO::FETCH_ASSOC));
+        if(empty($fetch)){
+            return null;
+        }
+
+        return new User(
+            $fetch[0]['id'],
+            $fetch[0]['nume'],
+            $fetch[0]['email']
+        );
     }
 
     public function update(User $user): void
