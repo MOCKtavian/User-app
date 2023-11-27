@@ -10,7 +10,7 @@ class DatabasePDO implements Database
     private string $db = 'test';
     private string $user = 'root';
     private string $pass = '';
-    private string $charset = 'utf8mb4';
+    private string $charset = 'UTF8';
 
     private PDO $pdo;
     public function __construct()
@@ -33,9 +33,10 @@ class DatabasePDO implements Database
     public function fetch(string $table, string $id)
     {
         $data = [
+            'table' => $table,
             'id' => $id,
         ];
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id ");
+        $stmt = $this->pdo->prepare("SELECT * FROM :table WHERE id = :id ");
         $stmt->execute($data);
         return $stmt->fetch();
     }
@@ -60,9 +61,12 @@ class DatabasePDO implements Database
         $stmt->execute($data);
     }
 
-    public function update(string $table)
+    public function update(string $table, string $id,  array $values)
     {
 
+        foreach ($values as $key => $value) {
+
+        }
     }
 
     public function insert(string $table, ...$params)

@@ -24,10 +24,14 @@ class UserDatabaseRepository implements UserRepository
 
     private function insert(UserData $data): int
     {
-        dump(array($data));
+        $newData = [
+            'email' => $data->email,
+            'nume' => $data->nume,
+        ];
         $stmt = $this->databasePDO->getPDO()
-            ->prepare("INSERT INTO `users` (`email`, `nume`) VALUES ($data->email, $data->nume)");
-        $stmt->execute();
+            ->prepare("INSERT INTO `users` (`email`, `nume`) VALUES (:email, :nume)");
+        $stmt->execute($newData);
+        dd($this->findWhereEmail($data->email)->id());
         return $this->findWhereEmail($data->email)->id();
     }
 
