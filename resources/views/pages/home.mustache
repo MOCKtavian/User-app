@@ -16,9 +16,21 @@
         <label for="nume">Nume:</label><br>
         <input type="text" id="nume" name="nume"><br>
         <button type="submit" formaction="/users/register">Register</button>
+        <button type="submit" formaction="/users/fetchAll">Fetch All</button>
         <button type="submit">Log in</button>
     </form>
-    Welcome
+
+    <form action="/users/fetch" method="post">
+        <label for="id">ID User:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <button type="submit">Fetch</button>
+    </form>
+
+    <form action="/users/delete" method="post">
+        <label for="id">ID User:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <button type="submit">Delete</button>
+    </form>
 
     <h1>{{ content.heading }}</h1>
     <p>{{ content.content }}</p>

@@ -15,6 +15,11 @@ class Router extends BramusRouter
     ) {
     }
 
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
     protected function invoke($fn, $params =[]): void
     {
         if ($fn instanceof Closure) {
@@ -68,7 +73,6 @@ class Router extends BramusRouter
         }
 
         if (!method_exists($controller,$method)) {
-            dump($method, $controller);
             throw new RuntimeException("Controller class `{$controller}` does not have the method `{$method}`.");
         }
 

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Actions\CreateUser;
+use App\Actions\ReadUsers;
+use App\Contracts\UserRepository;
 use App\Data\UserData;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,10 +23,18 @@ class UserController
         );
     }
 
-    public function get(Request $request)
+    public function showUsers(ReadUsers $action)
     {
+        dump($action->fetchAllAction());
+    }
 
-        echo view('pages/usermenu.mustache', ['name' => $request->request->get('email'), 'email' => $request->request->get('nume')]);
+    public function fetchUser(string $id,Request $request, ReadUsers $action)
+    {
+        print_r($action->fetchAction($id));
+    }
 
+    public function deleteUser(int $id, UserRepository $repository)
+    {
+        $repository->delete($id);
     }
 }

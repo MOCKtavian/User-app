@@ -19,20 +19,27 @@ class UserDatabaseRepository implements UserRepository
 
     public function create(UserData $data): User
     {
+        dd($arrdata = array($data));
+
         return User::create($this->insert($data), $data);
+    }
+
+    public function all(): array
+    {
+        return [];
     }
 
     private function insert(UserData $data): int
     {
-        $newData = [
-            'email' => $data->email,
-            'nume' => $data->nume,
-        ];
         $stmt = $this->databasePDO->getPDO()
             ->prepare("INSERT INTO `users` (`email`, `nume`) VALUES (:email, :nume)");
-        $stmt->execute($newData);
-        dd($this->findWhereEmail($data->email)->id());
-        return $this->findWhereEmail($data->email)->id();
+
+        $stmt->execute([
+            'email' => $data->email,
+            'name' => $data->name,
+        ]);
+
+        return $this->databasePDO->lastInsertID();
     }
 
     public function get(int $id): User
@@ -40,39 +47,44 @@ class UserDatabaseRepository implements UserRepository
         return $this->find($id) ?? throw EntityNotFoundException::missing(User::class, $id);
     }
 
-    public function find(int $id): User
+    public function find(int $id): ?User
     {
-        $fetch = $this->databasePDO->fetch('users', $id);
-        return new User(
-            $fetch['id'],
-            $fetch['nume'],
-            $fetch['email']
-        );
+
+        return $this->map($this->databasePDO->fetch('users', $id));
     }
 
     public function findWhereEmail(string $email): ?User
     {
-        $data = [
-            'email' => $email,
-        ];
         $stmt = $this->databasePDO->getPDO()
             ->prepare("SELECT * FROM `users` WHERE email = :email ");
-        $stmt->execute($data);
 
-        $fetch = ($stmt->fetchAll(PDO::FETCH_ASSOC));
-        if(empty($fetch)){
-            return null;
-        }
+        $stmt->execute([
+            'email' => $email,
+        ]);
 
-        return new User(
-            $fetch[0]['id'],
-            $fetch[0]['nume'],
-            $fetch[0]['email']
-        );
+        return $this->map($stmt->fetchAll(PDO::FETCH_ASSOC)[0] ?? null);
     }
 
     public function update(User $user): void
     {
         // ...
+    }
+
+    public function delete(int $id): void
+    {
+        $stmt = $this->databasePDO->getPDO()
+            ->prepare('DELETE FROM `users` WHERE id = :id');
+
+        $stmt->execute([
+            'id' => $id
+        ]);
+    }
+
+    private function map(?array $data): ?User
+    {
+        return $data ? User::create(
+            $data['id'],
+            new UserData($data['email'], $data['name'])
+        ) : null;
     }
 }

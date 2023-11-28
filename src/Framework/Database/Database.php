@@ -8,4 +8,5 @@ interface Database
     public function fetchAll(string $table);
     public function insert(string $table, ...$params);
     public function delete(string $table, string $id);
+    public function lastInsertID(): int;
 }

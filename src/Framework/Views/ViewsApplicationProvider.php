@@ -40,6 +40,6 @@ class ViewsApplicationProvider extends ApplicationProvider
 
     public function boot(): void
     {
-        //...
+        // ...
     }
 }

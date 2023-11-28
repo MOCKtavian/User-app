@@ -8,7 +8,7 @@ readonly class UserData
 {
     public function __construct(
         public string $email,
-        public string $nume,
+        public string $name,
     ) {
     }
 }

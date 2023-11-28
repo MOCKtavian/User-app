@@ -15,7 +15,7 @@ class User
         );
     }
 
-    public function __construct(
+    private function __construct(
         private readonly int $id,
         private string $email,
         private string $nume,
@@ -35,5 +35,11 @@ class User
     public function name(): string
     {
         return $this->nume;
+    }
+
+    public function update(UserData $data): void
+    {
+        $this->email = $data->email;
+        $this->name = $data->name;
     }
 }

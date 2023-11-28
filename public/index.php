@@ -1,8 +1,6 @@
 <?php
 
-use App\Contracts\UserRepository;
 use DI\ContainerBuilder;
-use Framework\Database\DatabasePDO;
 use Framework\Engine\Application;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -10,6 +8,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $container = (new ContainerBuilder)->build();
 
 $app = Application::create(__DIR__.DIRECTORY_SEPARATOR.'..', $container);
+
 $app->bootstrap(
     \Framework\Engine\Bootstrap\LoadConfig::class,
     \Framework\Engine\Bootstrap\RegisterProviders::class,

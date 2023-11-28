@@ -33,10 +33,9 @@ class DatabasePDO implements Database
     public function fetch(string $table, string $id)
     {
         $data = [
-            'table' => $table,
             'id' => $id,
         ];
-        $stmt = $this->pdo->prepare("SELECT * FROM :table WHERE id = :id ");
+        $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE id = :id ");
         $stmt->execute($data);
         return $stmt->fetch();
     }
@@ -63,10 +62,15 @@ class DatabasePDO implements Database
 
     public function update(string $table, string $id,  array $values)
     {
-
+        $data = [
+            'table' => $table
+        ];
         foreach ($values as $key => $value) {
-
+            $data += [$key => $value];
         }
+
+        $stmt = $this->pdo->prepare('UPDATE `:table` SET ');
+        $stmt->execute($data);
     }
 
     public function insert(string $table, ...$params)
@@ -77,5 +81,10 @@ class DatabasePDO implements Database
         ];
         $stmt = $this->pdo->prepare("INSERT INTO users (nume, email) VALUES (:nume, :email);");
         $stmt->execute($data);
+    }
+
+    public function lastInsertID(): int
+    {
+        return $this->pdo->lastInsertId();
     }
 }
