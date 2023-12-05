@@ -36,4 +36,10 @@ class User
     {
         return $this->name;
     }
+
+    public function update(UserData $data): void
+    {
+        $this->email = $data->email;
+        $this->name = $data->name;
+    }
 }

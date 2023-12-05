@@ -3,7 +3,8 @@
         "bramus/router": "^1.6",
         "symfony/http-foundation": "^6.3",
         "mustache/mustache": "^2.14",
-        "php-di/php-di": "^7.0"
+        "php-di/php-di": "^7.0",
+        "ext-pdo": "*"
     },
     "require-dev": {
         "symfony/var-dumper": "^6.3"

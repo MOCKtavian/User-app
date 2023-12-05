@@ -18,9 +18,6 @@ class RoutingApplicationProvider extends ApplicationProvider
             Router::class,
             \DI\factory(function () {
                 $router = new Router($this->container);
-
-                $router->setNamespace('App\\Http\\Controllers\\');
-
                 return $router;
             }),
         );

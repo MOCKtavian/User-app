@@ -1,2 +1,55 @@
-<br>
-Welcome {{name}}!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ content.title }}</title>
+    {{> styles }}
+</head>
+<body>
+{{> header }}
+<main>
+    <form>
+        <label for="email">Adresa de E-mail:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="name">Nume:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <button type="submit" formaction="/register">Register</button>
+        <button type="submit" formaction="/users/fetchAll">Fetch All</button>
+    </form>
+
+    <p></p>
+
+    <form action="/users/5/fetch" method="post">
+        <label for="id">ID User:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <button type="submit">Fetch</button>
+    </form>
+
+    <p></p>
+
+    <form action="/users/delete" method="post">
+        <label for="id">ID User:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <button type="submit">Delete</button>
+    </form>
+
+    <p></p>
+
+    <form action="/users/update" method="post">
+        <label for="id">ID User:</label><br>
+        <input type="text" id="id" name="id"><br>
+        <label for="email">Adresa de E-mail:</label><br>
+        <input type="text" id="email" name="email"><br>
+        <label for="name">Nume:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <button type="submit">Update</button>
+    </form>
+
+    <h1>{{ content.heading }}</h1>
+    <p>{{ content.content }}</p>
+</main>
+{{> footer }}
+</body>
+</html>

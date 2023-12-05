@@ -17,5 +17,7 @@ interface UserRepository
 
     public function findWhereEmail(string $email): ?User;
 
-    public function update(User $user): void;
+    public function update(int $id, UserData $data): void;
+
+    public function delete(int $id): void;
 }
